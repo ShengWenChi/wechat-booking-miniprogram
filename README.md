@@ -1,63 +1,65 @@
-# Wechat Booking Miniprogram
+# WeChat Booking Mini-Program
 
-FluffyIce Studio（绵绵冰拼豆屋）微信小程序预约系统，提供计时、畅玩、限板三种预约模式。
+[中文版](README_zh.md)
 
-## 预约类型
+A WeChat Mini-Program booking system for FluffyIce Studio, a perler bead craft shop. Supports three booking types: hourly, all-day, and limited-board sessions.
 
-| 类型 | 说明 | 价格 |
-|------|------|------|
-| 计时 | 自定义开始/结束时间，超时10分钟内免费 | $11/hr |
-| 畅玩 | 全天不限时 | $50(平日) / $55(周末) |
-| 限板 | 选到店时间，自动+3小时，52×52一张板 | $30 |
+## Booking Types
 
-## 营业时间
+| Type | Description | Price |
+|------|-------------|-------|
+| Hourly | Custom start/end time, free grace period within 10 min | $11/hr |
+| All-Day | Unlimited time for the whole day | $50 (weekday) / $55 (weekend) |
+| Limited Board | Select arrival time, auto +3 hours, one 52×52 board | $30 |
 
-- 周一至周五：13:00 - 21:00
-- 周六周日：12:00 - 20:00
-- 最大容量：12人
+## Business Hours
 
-## 技术栈
+- Mon–Fri: 13:00 – 21:00
+- Sat–Sun: 12:00 – 20:00
+- Max capacity: 12 people
 
-- **前端**：微信小程序（WXML / WXSS / JS）
-- **后端**：Node.js + Express + MongoDB + JWT
+## Tech Stack
 
-## 项目结构
+- **Frontend**: WeChat Mini-Program (WXML / WXSS / JS)
+- **Backend**: Node.js + Express + MongoDB + JWT
+
+## Project Structure
 
 ```
-miniprogram/          # 小程序前端
+miniprogram/          # Mini-program frontend
 ├── pages/
-│   ├── home/         # 首页
-│   ├── booking/      # 预约页
-│   ├── myBookings/   # 我的预约
-│   ├── admin/        # 管理员页
-│   └── success/      # 预约成功页
-├── utils/            # 工具函数（API、日期、Mock、校验）
-└── assets/           # 图片资源
+│   ├── home/         # Home page
+│   ├── booking/      # Booking page
+│   ├── myBookings/   # My bookings
+│   ├── admin/        # Admin panel
+│   └── success/      # Booking success page
+├── utils/            # Utilities (API, date, mock, validation)
+└── assets/           # Images
 
-server/               # 后端服务
+server/               # Backend service
 └── src/
-    ├── models/       # 数据模型（User, Reservation, TimeSlot, StoreSettings）
-    ├── routes/       # API 路由（auth, reservations, timeslots, admin）
-    ├── middleware/    # JWT 鉴权中间件
-    └── seeds/        # 数据库初始化
+    ├── models/       # Data models (User, Reservation, TimeSlot, StoreSettings)
+    ├── routes/       # API routes (auth, reservations, timeslots, admin)
+    ├── middleware/    # JWT auth middleware
+    └── seeds/        # Database seeding
 ```
 
-## 快速开始
+## Getting Started
 
-### 后端
+### Backend
 
 ```bash
 cd server
-cp .env.example .env   # 配置环境变量
+cp .env.example .env   # Configure environment variables
 npm install
 npm start
 ```
 
-### 前端
+### Frontend
 
-1. 用[微信开发者工具](https://developers.weixin.qq.com/miniprogram/dev/devtools/download.html)打开项目根目录
-2. AppID：`wx9c4c06d01b11855f`
-3. 默认使用 Mock 模式，无需后端即可预览
+1. Open the project root with [WeChat DevTools](https://developers.weixin.qq.com/miniprogram/dev/devtools/download.html)
+2. AppID: `wx9c4c06d01b11855f`
+3. Mock mode is enabled by default — no backend needed for preview
 
 ## License
 
