@@ -1,0 +1,78 @@
+<!-- pages/myBookings/myBookings.wxml -->
+<view class="page-container">
+
+  <!-- Tab 栏 -->
+  <view class="tabs">
+    <view
+      class="tab-item {{filterStatus === item.key ? 'active' : ''}}"
+      wx:for="{{tabs}}"
+      wx:key="key"
+      data-key="{{item.key}}"
+      bindtap="onTabChange">
+      {{item.label}}
+    </view>
+  </view>
+
+  <view class="loading-state" wx:if="{{loading}}">
+    <text>加载中...</text>
+  </view>
+
+  <view wx:else>
+    <view class="empty-state" wx:if="{{filteredList.length === 0}}">
+      <text style="font-size:80rpx">📋</text>
+      <text>暂无预约记录</text>
+      <button class="btn-primary go-book-btn" bindtap="goBooking">立即预约</button>
+    </view>
+
+    <view class="booking-list" wx:else>
+      <view class="booking-card" wx:for="{{filteredList}}" wx:key="_id">
+
+        <view class="booking-header">
+          <text class="date-big">{{item.dateDisplay}}</text>
+          <view class="header-right">
+            <!-- 类型标签 -->
+            <view class="type-badge type-{{item.bookingType}}">{{item.typeLabel}}</view>
+            <!-- 状态标签 -->
+            <view class="status-tag tag {{item.status === 'confirmed' ? 'tag-success' : item.status === 'completed' ? 'tag-grey' : 'tag-danger'}}">
+              {{item.status === 'confirmed' ? '待体验' : item.status === 'completed' ? '已完成' : '已取消'}}
+            </view>
+          </view>
+        </view>
+
+        <view class="divider"/>
+
+        <view class="booking-detail">
+          <view class="detail-row">
+            <text class="detail-icon">🕐</text>
+            <text class="detail-label">时间</text>
+            <text class="detail-value" wx:if="{{item.bookingType === 'normal'}}">{{item.startTime}} - {{item.endTime}}</text>
+            <text class="detail-value tag-changwan" wx:elif="{{item.bookingType === 'changwan'}}">畅玩全天</text>
+            <text class="detail-value tag-xianban" wx:elif="{{item.bookingType === 'xianban'}}">时间待定（预估2-3h）</text>
+          </view>
+          <view class="detail-row">
+            <text class="detail-icon">👥</text>
+            <text class="detail-label">人数</text>
+            <text class="detail-value">{{item.peopleCount}} 人</text>
+          </view>
+          <view class="detail-row" wx:if="{{item.remark}}">
+            <text class="detail-icon">📝</text>
+            <text class="detail-label">备注</text>
+            <text class="detail-value">{{item.remark}}</text>
+          </view>
+        </view>
+
+        <view class="booking-footer">
+          <text class="create-time">预约于 {{item.createdAtDisplay}}</text>
+          <button
+            wx:if="{{item.canCancel}}"
+            class="btn-danger cancel-btn"
+            data-id="{{item._id}}"
+            bindtap="cancelBooking">
+            取消预约
+          </button>
+        </view>
+      </view>
+    </view>
+  </view>
+
+</view>

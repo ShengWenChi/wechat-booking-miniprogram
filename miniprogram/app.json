@@ -1,0 +1,37 @@
+{
+  "pages": [
+    "pages/home/home",
+    "pages/booking/booking",
+    "pages/myBookings/myBookings",
+    "pages/success/success",
+    "pages/admin/admin"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#C9956A",
+    "navigationBarTitleText": "FluffyIce Studio",
+    "navigationBarTextStyle": "white",
+    "backgroundColor": "#FFF8F0"
+  },
+  "tabBar": {
+    "color": "#A0784A",
+    "selectedColor": "#C9956A",
+    "backgroundColor": "#FFF8F0",
+    "borderStyle": "white",
+    "list": [
+      {
+        "pagePath": "pages/home/home",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/booking/booking",
+        "text": "预约"
+      },
+      {
+        "pagePath": "pages/myBookings/myBookings",
+        "text": "我的预约"
+      }
+    ]
+  },
+  "sitemapLocation": "sitemap.json"
+}

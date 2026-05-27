@@ -1,0 +1,41 @@
+<!-- pages/success/success.wxml -->
+<view class="success-page">
+  <view class="success-card">
+    <view class="success-icon">✅</view>
+    <text class="success-title">预约成功！</text>
+    <text class="success-sub">期待与你在 FluffyIce Studio 相见 🎉</text>
+
+    <view class="divider"/>
+
+    <view class="info-row">
+      <text class="info-label">预约日期</text>
+      <text class="info-value">{{dateDisplay}}</text>
+    </view>
+    <view class="info-row">
+      <text class="info-label">体验时段</text>
+      <text class="info-value">{{slotLabel}}</text>
+    </view>
+    <view class="info-row">
+      <text class="info-label">预约人数</text>
+      <text class="info-value">{{people}} 人</text>
+    </view>
+    <view class="info-row">
+      <text class="info-label">预约编号</text>
+      <text class="info-value id-text">{{reservationId}}</text>
+    </view>
+
+    <view class="divider"/>
+
+    <view class="tip-box">
+      <text class="tip-title">温馨提示</text>
+      <text class="tip-text">请提前5分钟到店，携带此预约凭证</text>
+      <text class="tip-text">如需取消请在"我的预约"中操作</text>
+      <text class="tip-text">地址：9111 Beckwith Rd, Unit 2030</text>
+    </view>
+  </view>
+
+  <view class="btn-group">
+    <button class="btn-secondary" bindtap="goMyBookings">查看我的预约</button>
+    <button class="btn-primary" bindtap="goHome">返回首页</button>
+  </view>
+</view>

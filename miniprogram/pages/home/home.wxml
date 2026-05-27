@@ -1,0 +1,65 @@
+<!-- pages/home/home.wxml -->
+<view class="page-container">
+
+  <!-- 顶部图片 -->
+  <image class="top-banner-img" src="/assets/images/banner_top.jpg" mode="aspectFill"/>
+
+  <!-- 店铺介绍卡片 -->
+  <view class="card store-card">
+    <view class="store-header">
+      <image class="store-logo" src="/assets/images/logo.jpg" mode="aspectFill" bindtap="onLogoTap"/>
+      <view class="store-info">
+        <text class="store-name">{{storeName}}</text>
+        <text class="store-notice">{{storeNotice}}</text>
+      </view>
+    </view>
+    <view class="divider"/>
+    <text class="store-desc">{{storeDesc}}</text>
+  </view>
+
+  <!-- 预约入口 -->
+  <view class="booking-entry card">
+    <view class="entry-title">
+      <text class="entry-icon">🎨</text>
+      <text class="entry-text">立即体验拼豆乐趣</text>
+    </view>
+    <text class="entry-sub">选择日期和时间段，轻松完成预约</text>
+    <button class="btn-primary booking-btn" bindtap="goBooking">
+      立即预约
+    </button>
+  </view>
+
+  <!-- 须知 -->
+  <view class="card notice-card">
+    <text class="notice-title">店内须知</text>
+    <view class="notice-item">
+      <text class="notice-num">1</text>
+      <text>本店提供场地、工具，创作过程需客人独立完成。（接代拼、代拼是另外的价格！）</text>
+    </view>
+    <view class="notice-item">
+      <text class="notice-num">2</text>
+      <text>挑选完颜色请联系工作人员开始计时，拼完喊工作人员停止计时。</text>
+    </view>
+    <view class="notice-item">
+      <text class="notice-num">3</text>
+      <text>一色一盘，禁止混豆！用完放回对应色号的瓶子内，混豆/大量洒落地面需支付 $10 清理费。</text>
+    </view>
+    <view class="notice-item">
+      <text class="notice-num">4</text>
+      <text>我们会尽力追求完美无孔的呈现，但无法保证100%完美，介意的宝宝可以选择自行熨烫。</text>
+    </view>
+    <view class="notice-item">
+      <text class="notice-num">5</text>
+      <text>拼豆是单人项目，两个人拼一个图也是按两人收费哦。</text>
+    </view>
+    <view class="notice-item">
+      <text class="notice-num">6</text>
+      <text>拼一半不拼了，无论带不带走，照价收费。</text>
+    </view>
+    <view class="notice-item">
+      <text class="notice-num">7</text>
+      <text>店内可以点外卖，但请不要点味道较大的食物。</text>
+    </view>
+  </view>
+
+</view>

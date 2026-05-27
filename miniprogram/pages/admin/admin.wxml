@@ -1,0 +1,151 @@
+<!-- pages/admin/admin.wxml -->
+<view class="page-container">
+
+  <!-- 登录 -->
+  <view class="login-page" wx:if="{{!isLoggedIn}}">
+    <view class="login-card card">
+      <text class="login-icon">🔐</text>
+      <text class="login-title">管理员登录</text>
+      <input
+        class="form-input"
+        type="password"
+        placeholder="请输入管理密码"
+        value="{{adminPassword}}"
+        bindinput="onPasswordInput"
+      />
+      <button class="btn-primary login-btn {{loginLoading ? 'disabled' : ''}}"
+        bindtap="adminLogin" disabled="{{loginLoading}}">
+        {{loginLoading ? '登录中...' : '登录'}}
+      </button>
+    </view>
+  </view>
+
+  <!-- 管理台 -->
+  <view wx:else>
+
+    <!-- 顶栏 -->
+    <view class="admin-header">
+      <text class="admin-title">管理台</text>
+      <button class="logout-btn" bindtap="adminLogout">退出</button>
+    </view>
+
+    <!-- 日期导航 -->
+    <view class="date-nav">
+      <button class="nav-btn" bindtap="prevDay">‹</button>
+      <text class="nav-date">{{currentDateDisplay}}</text>
+      <button class="nav-btn" bindtap="nextDay">›</button>
+    </view>
+
+    <!-- 统计概览 -->
+    <view class="stats-row" wx:if="{{stats}}">
+      <view class="stat-chip">
+        <text class="chip-num">{{stats.totalPeople}}</text>
+        <text class="chip-label">总人数</text>
+      </view>
+      <view class="stat-chip">
+        <text class="chip-num">{{stats.total}}</text>
+        <text class="chip-label">订单数</text>
+      </view>
+      <view class="stat-chip chip-normal" wx:if="{{stats.normal > 0}}">
+        <text class="chip-num">{{stats.normal}}</text>
+        <text class="chip-label">普通</text>
+      </view>
+      <view class="stat-chip chip-changwan" wx:if="{{stats.changwan > 0}}">
+        <text class="chip-num">{{stats.changwan}}</text>
+        <text class="chip-label">畅玩</text>
+      </view>
+      <view class="stat-chip chip-xianban" wx:if="{{stats.xianban > 0}}">
+        <text class="chip-num">{{stats.xianban}}</text>
+        <text class="chip-label">限板</text>
+      </view>
+    </view>
+
+    <!-- 畅玩/限板 特殊预约 -->
+    <view class="special-section" wx:if="{{specialEvents.length > 0}}">
+      <text class="section-title-sm">全天/待定预约</text>
+      <view
+        class="special-card type-{{item.bookingType}}"
+        wx:for="{{specialEvents}}"
+        wx:key="_id">
+        <view class="special-badge">{{item.typeLabel}}</view>
+        <view class="special-info">
+          <text class="special-name">{{item.userName}}</text>
+          <text class="special-contact" wx:if="{{item.contactInfo}}">📞 {{item.contactInfo}}</text>
+          <text class="special-people">{{item.peopleCount}} 人</text>
+          <text class="special-remark" wx:if="{{item.remark}}">· {{item.remark}}</text>
+        </view>
+        <button class="cancel-btn-sm" data-id="{{item._id}}" bindtap="adminCancelReservation">取消</button>
+      </view>
+    </view>
+
+    <!-- 容量热力图 -->
+    <view class="heat-section" wx:if="{{heatData.length > 0}}">
+      <text class="section-title-sm">每小时占用（共12位）</text>
+      <view class="heat-bar">
+        <view class="heat-col" wx:for="{{heatData}}" wx:key="h">
+          <view class="heat-track">
+            <view class="heat-fill level-{{item.level}}" style="{{item.fillStyle}}"/>
+          </view>
+          <text class="heat-hour">{{item.label}}</text>
+          <text class="heat-count" wx:if="{{item.count > 0}}">{{item.count}}</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 加载中 -->
+    <view class="loading-state" wx:if="{{loading}}">
+      <text>加载中...</text>
+    </view>
+
+    <!-- 时间轴 -->
+    <view class="timeline-card" wx:elif="{{!loading}}">
+      <view class="timeline-row" style="{{containerStyle}}">
+
+        <!-- 左侧时间刻度 -->
+        <view class="time-col">
+          <view class="time-label-item" wx:for="{{timeLabels}}" wx:key="label" style="{{item.posStyle}}">
+            <text class="time-label-text">{{item.label}}</text>
+          </view>
+        </view>
+
+        <!-- 右侧事件区 -->
+        <view class="events-col">
+          <!-- 小时网格线 -->
+          <view class="hour-line" wx:for="{{timeLabels}}" wx:key="label" style="{{item.posStyle}}"/>
+
+          <!-- 空状态 -->
+          <view class="timeline-empty" wx:if="{{timelineEvents.length === 0}}">
+            <text>今日暂无普通预约</text>
+          </view>
+
+          <!-- 预约块 -->
+          <view
+            class="event-block"
+            wx:for="{{timelineEvents}}"
+            wx:key="_id"
+            style="{{item.posStyle}}">
+            <view class="event-inner">
+              <text class="event-name">{{item.userName}}<text wx:if="{{item.bookingType === 'xianban'}}" class="event-type-tag"> 限板</text></text>
+              <text class="event-contact" wx:if="{{item.contactInfo}}">📞 {{item.contactInfo}}</text>
+              <text class="event-time">{{item.startTime}} - {{item.endTime}} · {{item.peopleCount}}人</text>
+              <text class="event-remark" wx:if="{{item.remark}}">{{item.remark}}</text>
+            </view>
+            <button
+              class="event-cancel-btn"
+              data-id="{{item._id}}"
+              catchtap="adminCancelReservation">✕</button>
+          </view>
+        </view>
+
+      </view>
+    </view>
+
+    <!-- 已取消 -->
+    <view class="cancelled-row" wx:if="{{cancelledList.length > 0}}">
+      <text class="cancelled-text">已取消 {{cancelledList.length}} 条</text>
+    </view>
+
+    <view style="height: 60px;"/>
+
+  </view>
+</view>

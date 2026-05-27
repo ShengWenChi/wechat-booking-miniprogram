@@ -1,0 +1,224 @@
+<!-- pages/booking/booking.wxml -->
+<view class="page-container">
+
+  <!-- 日期选择 -->
+  <view class="card">
+    <view class="section-label">选择日期</view>
+    <scroll-view class="date-scroll" scroll-x>
+      <view class="date-list">
+        <view
+          class="date-item {{selectedDateIndex === index ? 'selected' : ''}}"
+          wx:for="{{dateList}}"
+          wx:key="date"
+          data-index="{{index}}"
+          data-date="{{item.date}}"
+          bindtap="selectDate">
+          <text class="date-weekday">{{item.isToday ? '今天' : item.weekday}}</text>
+          <text class="date-day">{{item.day}}</text>
+          <text class="date-month">{{item.month}}月</text>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+
+  <!-- 预约类型 -->
+  <view class="card">
+    <view class="section-label">预约类型</view>
+    <view class="type-selector">
+      <view class="type-btn {{bookingType === 'normal' ? 'selected' : ''}}"
+        data-type="normal" bindtap="selectBookingType">
+        <text class="type-name">计时</text>
+        <text class="type-price">$11/hr</text>
+        <text class="type-desc">超时10min内免费，超过按半小时计费</text>
+      </view>
+      <view class="type-btn {{bookingType === 'changwan' ? 'selected' : ''}}"
+        data-type="changwan" bindtap="selectBookingType">
+        <text class="type-name">畅玩</text>
+        <text class="type-price">{{changwanPrice}}</text>
+        <text class="type-desc">不限时不限量，all you can 拼</text>
+      </view>
+      <view class="type-btn {{bookingType === 'xianban' ? 'selected' : ''}}"
+        data-type="xianban" bindtap="selectBookingType">
+        <text class="type-name">限板</text>
+        <text class="type-price">$30</text>
+        <text class="type-desc">限一张板(52×52)，不可重复使用</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 畅玩说明 -->
+  <view class="card type-info-card" wx:if="{{bookingType === 'changwan'}}">
+    <text class="type-info-icon">🎨</text>
+    <view class="type-info-content">
+      <text class="type-info-title">畅玩 {{changwanPrice}}</text>
+      <text class="type-info-desc">营业时间内无任何限制，不限时不限量，all you can 拼</text>
+    </view>
+  </view>
+
+  <!-- 时间选择（计时 + 限板） -->
+  <view class="card" wx:if="{{bookingType !== 'changwan'}}">
+    <view class="section-label">选择时间</view>
+    <text class="business-hours-hint">
+      营业时间 {{businessHours.label}}{{bookingType === 'xianban' ? '  ·  限板固定占3小时' : ''}}
+    </text>
+
+    <!-- ① 小时卡片：点击选择开始时间 -->
+    <view class="hour-grid-loading" wx:if="{{loadingOverview}}">
+      <text>加载中...</text>
+    </view>
+    <scroll-view class="hour-scroll" scroll-x wx:elif="{{hourSlots.length > 0}}">
+      <view class="hour-list">
+        <view
+          class="hour-chip chip-{{item.isFull ? 'full' : item.level}} {{item.isSelected ? 'chip-selected' : ''}} {{item.isInRange && !item.isSelected ? 'chip-in-range' : ''}}"
+          wx:for="{{hourSlots}}"
+          wx:key="time"
+          data-time="{{item.time}}"
+          data-isfull="{{item.isFull}}"
+          bindtap="onHourTap">
+          <text class="chip-hour">{{item.label}}点</text>
+          <text class="chip-avail">{{item.isFull ? '满员' : item.remaining + '余位'}}</text>
+        </view>
+      </view>
+    </scroll-view>
+
+    <!-- ② 已选时间段展示条 -->
+    <view class="range-bar">
+      <view class="range-endpoint">
+        <text class="range-time">{{startTime}}</text>
+        <text class="range-tip">开始</text>
+      </view>
+      <view class="range-mid">
+        <text class="range-dur">{{bookingType === 'xianban' ? '3小时（固定）' : durationLabel}}</text>
+        <view class="range-track"><view class="range-fill"></view></view>
+      </view>
+      <view class="range-endpoint">
+        <text class="range-time">{{bookingType === 'xianban' ? xianbanEndTime : endTime}}</text>
+        <text class="range-tip">结束</text>
+      </view>
+    </view>
+
+    <!-- ③ 计时：精调开始/结束 -->
+    <view wx:if="{{bookingType === 'normal'}}">
+      <view class="time-row">
+        <view class="time-block">
+          <text class="time-label">开始时间</text>
+          <picker mode="time" value="{{startTime}}" start="{{businessHours.open}}" end="{{businessHours.close}}" bindchange="onStartTimeChange">
+            <view class="time-picker-box">
+              <text class="time-value">{{startTime}}</text>
+              <text class="time-arrow-small">▼</text>
+            </view>
+          </picker>
+        </view>
+        <text class="time-to">→</text>
+        <view class="time-block">
+          <text class="time-label">结束时间</text>
+          <picker mode="time" value="{{endTime}}" start="{{businessHours.open}}" end="{{businessHours.close}}" bindchange="onEndTimeChange">
+            <view class="time-picker-box">
+              <text class="time-value">{{endTime}}</text>
+              <text class="time-arrow-small">▼</text>
+            </view>
+          </picker>
+        </view>
+      </view>
+      <text class="time-warn" wx:if="{{startTime >= endTime}}">⚠ 结束时间需晚于开始时间</text>
+    </view>
+
+    <!-- ③ 限板：只选到店时间，结束自动算 -->
+    <view wx:if="{{bookingType === 'xianban'}}">
+      <view class="time-row">
+        <view class="time-block">
+          <text class="time-label">到店时间</text>
+          <picker mode="time" value="{{startTime}}" start="{{businessHours.open}}" end="{{businessHours.close}}" bindchange="onStartTimeChange">
+            <view class="time-picker-box">
+              <text class="time-value">{{startTime}}</text>
+              <text class="time-arrow-small">▼</text>
+            </view>
+          </picker>
+        </view>
+        <text class="time-to">→</text>
+        <view class="time-block">
+          <text class="time-label">预计结束（自动）</text>
+          <view class="time-picker-box time-auto">
+            <text class="time-value">{{xianbanEndTime}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 名额查询结果 -->
+  <view class="card avail-card" wx:if="{{loadingAvail || availability}}">
+    <view class="avail-loading" wx:if="{{loadingAvail}}">
+      <text>查询名额中...</text>
+    </view>
+    <view wx:elif="{{availability}}">
+      <view class="avail-row avail-full" wx:if="{{availability.isFull}}">
+        <text>该时间段已满（12/12 位）</text>
+      </view>
+      <view class="avail-row avail-ok" wx:else>
+        <text>还剩 {{availability.remaining}} 个位置（共12位）</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 人数选择 -->
+  <view class="card">
+    <view class="section-label">人数</view>
+    <view class="people-selector">
+      <button class="people-btn" bindtap="decreasePeople">－</button>
+      <view class="people-count">
+        <text class="count-num">{{peopleCount}}</text>
+        <text class="count-unit">人</text>
+      </view>
+      <button class="people-btn" bindtap="increasePeople">＋</button>
+    </view>
+    <text class="people-hint" wx:if="{{availability && !availability.isFull}}">
+      当前时段最多可预约 {{availability.remaining}} 人
+    </text>
+  </view>
+
+  <!-- 联系方式 -->
+  <view class="card">
+    <view class="section-label">联系方式</view>
+    <input
+      class="form-input"
+      placeholder="姓名 / 手机号（自动填入微信昵称，可修改）"
+      value="{{contactInfo}}"
+      bindinput="onContactInfoInput"
+      maxlength="50"
+    />
+  </view>
+
+  <!-- 备注 -->
+  <view class="card">
+    <view class="section-label">备注 <text class="optional-label">（可选）</text></view>
+    <textarea
+      class="form-textarea"
+      placeholder="如有特殊需求，请填写备注"
+      value="{{remark}}"
+      bindinput="onRemarkInput"
+      maxlength="100"
+      auto-height
+    />
+  </view>
+
+  <!-- 提交区域 -->
+  <view class="submit-area">
+    <view class="order-summary">
+      <text>{{dateList[selectedDateIndex].month}}月{{dateList[selectedDateIndex].day}}日</text>
+      <text class="summary-sep"> · </text>
+      <text wx:if="{{bookingType === 'normal'}}">{{startTime}} - {{endTime}}</text>
+      <text wx:elif="{{bookingType === 'changwan'}}">畅玩全天</text>
+      <text wx:else>限板 {{startTime}}-{{xianbanEndTime}}</text>
+      <text class="summary-sep"> · </text>
+      <text>{{peopleCount}} 人</text>
+    </view>
+    <button
+      class="btn-primary submit-btn {{(submitting || !contactInfo || (availability && availability.isFull) || (bookingType === 'normal' && startTime >= endTime)) ? 'disabled' : ''}}"
+      bindtap="submitReservation"
+      disabled="{{submitting || !contactInfo || (availability && availability.isFull) || (bookingType === 'normal' && startTime >= endTime)}}">
+      {{submitting ? '提交中...' : (availability && availability.isFull) ? '该时间段已满' : !contactInfo ? '请填写联系方式' : '确认预约'}}
+    </button>
+  </view>
+
+</view>

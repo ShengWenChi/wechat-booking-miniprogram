@@ -1,0 +1,101 @@
+/* pages/success/success.wxss */
+
+.success-page {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #FFF0E6 0%, #FFF8F0 40%);
+  padding: 80rpx 32rpx 40rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.success-card {
+  background: #FFFFFF;
+  border-radius: 32rpx;
+  padding: 60rpx 48rpx;
+  width: 100%;
+  box-shadow: 0 8rpx 40rpx rgba(161,120,74,0.15);
+  text-align: center;
+}
+
+.success-icon {
+  font-size: 100rpx;
+  line-height: 1;
+  margin-bottom: 24rpx;
+}
+
+.success-title {
+  display: block;
+  font-size: 48rpx;
+  font-weight: 700;
+  color: #5C3D2E;
+  margin-bottom: 12rpx;
+}
+
+.success-sub {
+  display: block;
+  font-size: 26rpx;
+  color: #A0784A;
+  margin-bottom: 8rpx;
+}
+
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20rpx 0;
+  font-size: 28rpx;
+}
+
+.info-label {
+  color: #A0784A;
+}
+
+.info-value {
+  color: #5C3D2E;
+  font-weight: 600;
+}
+
+.id-text {
+  font-size: 22rpx;
+  color: #BDBDBD;
+  font-weight: 400;
+}
+
+.tip-box {
+  background: #FFF5EE;
+  border-radius: 16rpx;
+  padding: 24rpx;
+  text-align: left;
+}
+
+.tip-title {
+  display: block;
+  font-size: 24rpx;
+  font-weight: 600;
+  color: #C9956A;
+  margin-bottom: 12rpx;
+}
+
+.tip-text {
+  display: block;
+  font-size: 22rpx;
+  color: #A0784A;
+  line-height: 1.8;
+}
+
+.btn-group {
+  width: 100%;
+  margin-top: 40rpx;
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.btn-group .btn-primary,
+.btn-group .btn-secondary {
+  width: 100%;
+  border-radius: 50rpx;
+  padding: 28rpx 0;
+  font-size: 30rpx;
+}

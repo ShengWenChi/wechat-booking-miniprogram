@@ -1,0 +1,128 @@
+/* app.wxss - 全局样式 */
+page {
+  background-color: #FFF8F0;
+  font-family: -apple-system, 'PingFang SC', 'Helvetica Neue', sans-serif;
+  color: #5C3D2E;
+  box-sizing: border-box;
+}
+
+/* 颜色变量 (通过类名实现) */
+/* 奶油白: #FFF8F0  木色: #C9956A  深木色: #A0784A  粉色: #FFB5C8 */
+
+/* 通用容器 */
+.page-container {
+  min-height: 100vh;
+  background-color: #FFF8F0;
+  padding-bottom: 40rpx;
+}
+
+/* 通用卡片 */
+.card {
+  background: #FFFFFF;
+  border-radius: 24rpx;
+  padding: 32rpx;
+  margin: 24rpx 32rpx;
+  box-shadow: 0 4rpx 20rpx rgba(161, 120, 74, 0.1);
+}
+
+/* 主按钮 */
+.btn-primary {
+  background: linear-gradient(135deg, #C9956A, #A0784A);
+  color: #FFFFFF;
+  border-radius: 50rpx;
+  padding: 28rpx 0;
+  text-align: center;
+  font-size: 32rpx;
+  font-weight: 600;
+  letter-spacing: 4rpx;
+  border: none;
+  box-shadow: 0 8rpx 24rpx rgba(161, 120, 74, 0.3);
+}
+
+.btn-primary:active {
+  opacity: 0.85;
+  transform: scale(0.98);
+}
+
+/* 次要按钮 */
+.btn-secondary {
+  background: #FFF0E6;
+  color: #C9956A;
+  border: 2rpx solid #C9956A;
+  border-radius: 50rpx;
+  padding: 24rpx 0;
+  text-align: center;
+  font-size: 28rpx;
+  font-weight: 500;
+}
+
+/* 危险按钮 */
+.btn-danger {
+  background: #FFF0F0;
+  color: #E57373;
+  border: 2rpx solid #E57373;
+  border-radius: 50rpx;
+  padding: 20rpx 40rpx;
+  font-size: 26rpx;
+}
+
+/* 标签 */
+.tag {
+  display: inline-block;
+  padding: 8rpx 20rpx;
+  border-radius: 20rpx;
+  font-size: 22rpx;
+  font-weight: 500;
+}
+
+.tag-success {
+  background: #E8F5E9;
+  color: #4CAF50;
+}
+
+.tag-warning {
+  background: #FFF3E0;
+  color: #FF9800;
+}
+
+.tag-danger {
+  background: #FFEBEE;
+  color: #F44336;
+}
+
+.tag-grey {
+  background: #F5F5F5;
+  color: #9E9E9E;
+}
+
+/* 分割线 */
+.divider {
+  height: 1rpx;
+  background: #F0E8E0;
+  margin: 24rpx 0;
+}
+
+/* 空状态 */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 80rpx 40rpx;
+  color: #BDBDBD;
+}
+
+.empty-state text {
+  font-size: 28rpx;
+  margin-top: 24rpx;
+}
+
+/* 加载状态 */
+.loading-mask {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(255,248,240,0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}

@@ -1,0 +1,184 @@
+/* pages/myBookings/myBookings.wxss */
+
+/* Tabs */
+.tabs {
+  display: flex;
+  background: #FFFFFF;
+  border-bottom: 1rpx solid #F0E8E0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.tab-item {
+  flex: 1;
+  text-align: center;
+  padding: 28rpx 0;
+  font-size: 26rpx;
+  color: #A0784A;
+  position: relative;
+  transition: all 0.2s;
+}
+
+.tab-item.active {
+  color: #C9956A;
+  font-weight: 600;
+}
+
+.tab-item.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 25%;
+  width: 50%;
+  height: 4rpx;
+  background: #C9956A;
+  border-radius: 2rpx;
+}
+
+/* 加载 */
+.loading-state {
+  text-align: center;
+  padding: 80rpx;
+  color: #BDBDBD;
+  font-size: 28rpx;
+}
+
+/* 空状态 */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 100rpx 40rpx;
+  gap: 20rpx;
+  color: #BDBDBD;
+  font-size: 28rpx;
+}
+
+.go-book-btn {
+  margin-top: 20rpx;
+  padding: 24rpx 60rpx;
+  font-size: 28rpx;
+}
+
+/* 预约列表 */
+.booking-list {
+  padding: 16rpx 0;
+}
+
+.booking-card {
+  background: #FFFFFF;
+  border-radius: 24rpx;
+  padding: 32rpx;
+  margin: 16rpx 24rpx;
+  box-shadow: 0 4rpx 20rpx rgba(161,120,74,0.08);
+}
+
+.booking-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8rpx;
+}
+
+.date-big {
+  font-size: 30rpx;
+  font-weight: 700;
+  color: #5C3D2E;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 10rpx;
+}
+
+/* 类型标签 */
+.type-badge {
+  font-size: 20rpx;
+  padding: 6rpx 16rpx;
+  border-radius: 16rpx;
+  font-weight: 600;
+}
+
+.type-normal {
+  background: #EDE7F6;
+  color: #7B1FA2;
+}
+
+.type-changwan {
+  background: #E8F5E9;
+  color: #2E7D32;
+}
+
+.type-xianban {
+  background: #FFF3E0;
+  color: #E65100;
+}
+
+.status-tag {
+  font-size: 22rpx;
+  padding: 8rpx 20rpx;
+  border-radius: 20rpx;
+}
+
+/* 时间展示特殊样式 */
+.tag-changwan {
+  color: #2E7D32;
+  font-weight: 600;
+}
+
+.tag-xianban {
+  color: #E65100;
+  font-weight: 600;
+}
+
+/* 详情行 */
+.booking-detail {
+  padding: 8rpx 0;
+}
+
+.detail-row {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+  padding: 12rpx 0;
+}
+
+.detail-icon {
+  font-size: 28rpx;
+  width: 40rpx;
+  text-align: center;
+}
+
+.detail-label {
+  font-size: 24rpx;
+  color: #BDBDBD;
+  width: 80rpx;
+  flex-shrink: 0;
+}
+
+.detail-value {
+  font-size: 26rpx;
+  color: #5C3D2E;
+  flex: 1;
+}
+
+/* 底部 */
+.booking-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 8rpx;
+}
+
+.create-time {
+  font-size: 20rpx;
+  color: #BDBDBD;
+}
+
+.cancel-btn {
+  font-size: 22rpx;
+  padding: 12rpx 28rpx;
+  border-radius: 30rpx;
+}

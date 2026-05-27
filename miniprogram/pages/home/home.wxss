@@ -1,0 +1,184 @@
+/* pages/home/home.wxss */
+
+.top-banner-img {
+  width: 100%;
+  height: 680rpx;
+  display: block;
+}
+
+/* 店铺卡片 */
+.store-card {
+  margin-top: -30rpx;
+  border-radius: 30rpx 30rpx 24rpx 24rpx;
+  position: relative;
+  z-index: 10;
+}
+
+.store-header {
+  display: flex;
+  align-items: center;
+  gap: 24rpx;
+}
+
+.store-logo {
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 50%;
+  border: 4rpx solid #FFF0E6;
+  flex-shrink: 0;
+}
+
+.store-info {
+  flex: 1;
+}
+
+.store-name {
+  font-size: 36rpx;
+  font-weight: 700;
+  color: #5C3D2E;
+  display: block;
+}
+
+.store-notice {
+  font-size: 22rpx;
+  color: #A0784A;
+  margin-top: 8rpx;
+  display: block;
+}
+
+.store-desc {
+  font-size: 26rpx;
+  color: #7A5C44;
+  line-height: 1.7;
+  white-space: pre-wrap;
+}
+
+/* 预约入口 */
+.booking-entry {
+  text-align: center;
+  background: linear-gradient(135deg, #FFF0E6, #FFE4D0);
+}
+
+.entry-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12rpx;
+  margin-bottom: 12rpx;
+}
+
+.entry-icon {
+  font-size: 40rpx;
+}
+
+.entry-text {
+  font-size: 34rpx;
+  font-weight: 700;
+  color: #5C3D2E;
+}
+
+.entry-sub {
+  font-size: 24rpx;
+  color: #A0784A;
+  display: block;
+  margin-bottom: 32rpx;
+}
+
+.booking-btn {
+  width: 80%;
+  margin: 0 auto;
+}
+
+/* 作品展示 */
+.works-section {
+  padding: 0 32rpx;
+  margin-top: 8rpx;
+}
+
+.section-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20rpx;
+  margin-bottom: 28rpx;
+}
+
+.title-line {
+  flex: 1;
+  height: 2rpx;
+  background: linear-gradient(to right, transparent, #C9956A);
+}
+
+.title-line:last-child {
+  background: linear-gradient(to left, transparent, #C9956A);
+}
+
+.title-text {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #A0784A;
+  white-space: nowrap;
+}
+
+.works-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20rpx;
+}
+
+.work-item {
+  border-radius: 20rpx;
+  overflow: hidden;
+  background: #FFFFFF;
+  box-shadow: 0 4rpx 16rpx rgba(161,120,74,0.1);
+}
+
+.work-img {
+  width: 100%;
+  height: 240rpx;
+}
+
+.work-title {
+  display: block;
+  text-align: center;
+  font-size: 24rpx;
+  color: #7A5C44;
+  padding: 16rpx 0;
+}
+
+/* 须知卡片 */
+.notice-card {
+  margin-top: 24rpx;
+}
+
+.notice-title {
+  font-size: 30rpx;
+  font-weight: 700;
+  color: #5C3D2E;
+  display: block;
+  margin-bottom: 20rpx;
+}
+
+.notice-item {
+  display: flex;
+  gap: 12rpx;
+  margin-bottom: 16rpx;
+  font-size: 26rpx;
+  color: #7A5C44;
+  line-height: 1.6;
+}
+
+.notice-num {
+  flex-shrink: 0;
+  width: 36rpx;
+  height: 36rpx;
+  border-radius: 50%;
+  background: #C9956A;
+  color: #FFFFFF;
+  font-size: 20rpx;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 4rpx;
+}
